@@ -51,4 +51,13 @@ jobs:
           script: |
             sudo docker pull ignazigelherz/infra_actions
             sudo docker stop $(sudo docker ps -a -q)
-            sudo docker run --rm -d -p 5000:5000 ignazigelherz/infra_actions 
+            sudo docker run --rm -d -p 5000:5000 ignazigelherz/infra_actions
+  send_message:
+    runs-on: ubuntu-latest
+    steps
+    - name: send message
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: ${{ github.workflow }} успешно выполнен! 
